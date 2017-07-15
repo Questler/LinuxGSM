@@ -901,6 +901,9 @@ elif [ "${engine}" == "unreal" ]||[ "${engine}" == "unreal2" ]; then
 # Unreal 3 engine
 elif [ "${engine}" == "unreal3" ]; then
 	fn_info_config_unreal3
+# The Forest (unity3d)
+elif [ "${gamename}" == "The Forest" ]; then
+	fn_info_config_tf
 # 7 Day To Die (unity3d)
 elif [ "${gamename}" == "7 Days To Die" ]; then
 	fn_info_config_sdtd
