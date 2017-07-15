@@ -637,6 +637,34 @@ fn_details_seriousengine35(){
 	} | column -s $'\t' -t
 }
 
+fn_details_tf(){
+	echo -e "netstat -atunp | grep TheForest"
+	echo -e ""
+	{
+		echo -e "DESCRIPTION\tDIRECTION\tPORT\tPROTOCOL"
+		echo -e "> Game/RCON\tINBOUND\t${port}\tudp"
+		echo -e "> Query\tINBOUND\t${queryport}\tudp"
+		echo -e "> WebAdmin\tINBOUND\t${webadminport}\ttcp"
+		echo -e "> Telnet\tINBOUND\t${telnetport}\ttcp"
+	} | column -s $'\t' -t
+	echo -e ""
+	echo -e "${lightgreen}${servername} WebAdmin${default}"
+	printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+	{
+		echo -e "${blue}WebAdmin enabled:\t${default}${webadminenabled}"
+		echo -e "${blue}WebAdmin url:\t${default}http://${ip}:${webadminport}"
+		echo -e "${blue}WebAdmin password:\t${default}${webadminpass}"
+	} | column -s $'\t' -t
+	echo -e ""
+	echo -e "${lightgreen}${servername} Telnet${default}"
+	printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+	{
+		echo -e "${blue}Telnet enabled:\t${default}${telnetenabled}"
+		echo -e "${blue}Telnet address:\t${default}${ip} ${telnetport}"
+		echo -e "${blue}Telnet password:\t${default}${telnetpass}"
+	} | column -s $'\t' -t
+}
+
 fn_details_sdtd(){
 	echo -e "netstat -atunp | grep 7DaysToDie"
 	echo -e ""
@@ -881,6 +909,8 @@ fn_display_details() {
 		fn_details_unreal
 	elif [ "${engine}" == "unreal3" ]; then
 		fn_details_ut3
+	elif [ "${gamename}" == "The Forest" ]; then
+		fn_details_tf
 	elif [ "${gamename}" == "7 Days To Die" ]; then
 		fn_details_sdtd
 	elif [ "${gamename}" == "ARK: Survival Evolved" ]; then
